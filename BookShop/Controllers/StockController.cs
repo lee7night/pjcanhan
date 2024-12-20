@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.Controllers
+namespace BookShoppingCartMvcUI.Controllers
 {
     [Authorize(Roles=nameof(Roles.Admin))]
     public class StockController : Controller

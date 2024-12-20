@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
-namespace BookShop.Models.DTOs;
+namespace BookShoppingCartMvcUI.Models.DTOs;
 public class BookDTO
 {
     public int Id { get; set; }

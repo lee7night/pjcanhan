@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace BookShop.Repositories
+namespace BookShoppingCartMvcUI.Repositories
 {
     public interface IBookRepository
     {

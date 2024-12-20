@@ -1,4 +1,4 @@
-﻿namespace BookShop
+﻿namespace BookShoppingCartMvcUI
 {
     public interface IHomeRepository
     {

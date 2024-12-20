@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookShop.Repositories
+namespace BookShoppingCartMvcUI.Repositories
 {
     public class CartRepository : ICartRepository
     {

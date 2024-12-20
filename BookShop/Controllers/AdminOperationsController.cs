@@ -1,9 +1,9 @@
-﻿using BookShop.Constants;
+﻿using BookShoppingCartMvcUI.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BookShop.Controllers;
+namespace BookShoppingCartMvcUI.Controllers;
 
 [Authorize(Roles = nameof(Roles.Admin))]
 public class AdminOperationsController : Controller

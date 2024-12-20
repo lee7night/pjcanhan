@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BookShop.Models
+namespace BookShoppingCartMvcUI.Models
 {
     [Table("OrderStatus")]
     public class OrderStatus

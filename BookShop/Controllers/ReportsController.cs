@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookShop.Controllers;
+namespace BookShoppingCartMvcUI.Controllers;
 public class ReportsController : Controller
 {
     private readonly IReportRepository _reportRepository;

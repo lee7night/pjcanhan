@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BookShop.Areas.Identity.Pages.Account.Manage
+namespace BookShoppingCartMvcUI.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {

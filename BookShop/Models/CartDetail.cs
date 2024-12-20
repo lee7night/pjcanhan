@@ -1,7 +1,7 @@
 ﻿using Microsoft.Build.Framework;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BookShop.Models
+namespace BookShoppingCartMvcUI.Models
 {
     [Table("CartDetail")]
     public class CartDetail

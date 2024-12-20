@@ -1,4 +1,4 @@
-﻿namespace BookShop.Repositories
+﻿namespace BookShoppingCartMvcUI.Repositories
 {
     public interface ICartRepository
     {
