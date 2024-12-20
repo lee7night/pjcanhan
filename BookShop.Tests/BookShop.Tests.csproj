@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BookShop\BookShop.csproj" />
+    <ProjectReference Include="..\BookShop\BookShoppingCartMvcUi.csproj" />
   </ItemGroup>
 
 </Project>

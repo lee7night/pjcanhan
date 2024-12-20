@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BookShop.Controllers;
-using BookShop.Models;
-using BookShop.Models.DTOs;
-using BookShop.Repositories;
-using BookShop.Shared;
+
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;

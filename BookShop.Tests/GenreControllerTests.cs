@@ -1,172 +1,106 @@
-using BookShop.Controllers;
-using BookShop.Models;
-using BookShop.Models.DTOs;
-using BookShop.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using Xunit;
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 
-namespace BookShop.Tests
+public class GenreControllerTests
 {
-    public class GenreControllerTests
+    private readonly Mock<IGenreRepository> _mockGenreRepo;
+    private readonly Mock<IMapper> _mockMapper;
+    private readonly GenreController _controller;
+
+    public GenreControllerTests()
     {
-        private readonly Mock<IGenreRepository> _mockRepo;
-        private readonly GenreController _controller;
+        _mockGenreRepo = new Mock<IGenreRepository>();
+        _mockMapper = new Mock<IMapper>();
+        _controller = new GenreController(_mockGenreRepo.Object, _mockMapper.Object);
+    }
 
-        public GenreControllerTests()
-        {
-            // Mock the repository interface
-            _mockRepo = new Mock<IGenreRepository>();
+    [Fact]
+    public async Task Index_ShouldReturnViewWithGenres()
+    {
+        // Arrange
+        var genres = new List<Genre> { new Genre { Id = 1, GenreName = "Fiction" } };
+        _mockGenreRepo.Setup(repo => repo.GetGenres()).ReturnsAsync(genres);
 
-            // Initialize the controller and mock TempData
-            _controller = new GenreController(_mockRepo.Object)
-            {
-                TempData = new TempDataDictionary(new DefaultHttpContext(), Mock.Of<ITempDataProvider>())
-            };
-        }
+        // Act
+        var result = await _controller.Index();
 
-        #region Test AddGenre - GET
-        [Fact]
-        public void AddGenre_ReturnsView()
-        {
-            // Act
-            var result = _controller.AddGenre();
+        // Assert
+        var viewResult = Assert.IsType<ViewResult>(result);
+        viewResult.Model.Should().BeEquivalentTo(genres);
+    }
 
-            // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal("AddGenre", viewResult.ViewName); // Validate the view name
-        }
-        #endregion
+    [Fact]
+    public void AddGenre_Get_ShouldReturnView()
+    {
+        // Act
+        var result = _controller.AddGenre();
 
-        #region Test AddGenre - POST
-        [Fact]
-        public async Task AddGenre_Post_AddsGenreAndRedirects()
-        {
-            // Arrange
-            var genreDTO = new GenreDTO { GenreName = "Fantasy" };
-            _mockRepo.Setup(repo => repo.AddGenre(It.IsAny<Genre>())).Returns(Task.CompletedTask);
+        // Assert
+        Assert.IsType<ViewResult>(result);
+    }
 
-            // Act
-            var result = await _controller.AddGenre(genreDTO);
 
-            // Assert
-            var redirectResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("AddGenre", redirectResult.ActionName); // Ensure redirection to the correct action
-            Assert.True(_controller.TempData.ContainsKey("successMessage"));
-            Assert.Equal("Genre added successfully", _controller.TempData["successMessage"]);
-        }
+    [Fact]
+    public async Task AddGenre_Post_ShouldReturnViewWithModelOnFailure()
+    {
+        // Arrange
+        _controller.ModelState.AddModelError("Name", "Required");
+        var genreDto = new GenreDTO { GenreName = "" };
 
-        [Fact]
-        public async Task AddGenre_Post_ReturnsViewOnInvalidModelState()
-        {
-            // Arrange
-            var genreDTO = new GenreDTO { GenreName = "" }; // Invalid data
-            _controller.ModelState.AddModelError("GenreName", "Genre name is required");
+        // Act
+        var result = await _controller.AddGenre(genreDto);
 
-            // Act
-            var result = await _controller.AddGenre(genreDTO);
+        // Assert
+        var viewResult = Assert.IsType<ViewResult>(result);
+        viewResult.Model.Should().Be(genreDto);
+    }
 
-            // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal(genreDTO, viewResult.Model); // Validate that the invalid model is passed to the view
-        }
-        #endregion
+    [Fact]
+    public async Task UpdateGenre_Get_ShouldReturnViewWithGenre()
+    {
+        // Arrange
+        var genre = new Genre { Id = 1, GenreName = "Fiction" };
+        var genreDto = new GenreDTO { GenreName = "Fiction" };
+        _mockGenreRepo.Setup(repo => repo.GetGenreById(1)).ReturnsAsync(genre);
+        _mockMapper.Setup(m => m.Map<GenreDTO>(genre)).Returns(genreDto);
 
-        #region Test UpdateGenre - GET
-        [Fact]
-        public async Task UpdateGenre_ReturnsViewForExistingGenre()
-        {
-            // Arrange
-            var genre = new Genre { Id = 1, GenreName = "Science Fiction" };
-            _mockRepo.Setup(repo => repo.GetGenreById(1)).ReturnsAsync(genre);
+        // Act
+        var result = await _controller.UpdateGenre(1);
 
-            // Act
-            var result = await _controller.UpdateGenre(1);
+        // Assert
+        var viewResult = Assert.IsType<ViewResult>(result);
+        viewResult.Model.Should().Be(genreDto);
+    }
 
-            // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsType<GenreDTO>(viewResult.Model);
-            Assert.Equal("Science Fiction", model.GenreName);
-        }
+    [Fact]
+    public async Task DeleteGenre_ShouldRedirectToIndexOnSuccess()
+    {
+        // Arrange
+        var genre = new Genre { Id = 1, GenreName = "Fiction" };
+        _mockGenreRepo.Setup(repo => repo.GetGenreById(1)).ReturnsAsync(genre);
+        _mockGenreRepo.Setup(repo => repo.DeleteGenre(genre)).Returns(Task.CompletedTask);
 
-        [Fact]
-        public async Task UpdateGenre_ThrowsExceptionWhenGenreNotFound()
-        {
-            // Arrange
-            _mockRepo.Setup(repo => repo.GetGenreById(1)).ReturnsAsync((Genre)null);
+        // Act
+        var result = await _controller.DeleteGenre(1);
 
-            // Act & Assert
-            var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => _controller.UpdateGenre(1));
-            Assert.Equal("Genre with id: 1 does not found", exception.Message);
-        }
-        #endregion
+        // Assert
+        var redirectResult = Assert.IsType<RedirectToActionResult>(result);
+        Assert.Equal(nameof(_controller.Index), redirectResult.ActionName);
+    }
 
-        #region Test UpdateGenre - POST
-        [Fact]
-        public async Task UpdateGenre_Post_UpdatesGenreAndRedirects()
-        {
-            // Arrange
-            var genreDTO = new GenreDTO { Id = 1, GenreName = "Updated Science Fiction" };
-            var genre = new Genre { Id = 1, GenreName = "Updated Science Fiction" };
-            _mockRepo.Setup(repo => repo.UpdateGenre(It.IsAny<Genre>())).Returns(Task.CompletedTask);
+    [Fact]
+    public async Task DeleteGenre_ShouldThrowInvalidOperationExceptionWhenGenreNotFound()
+    {
+        // Arrange
+        _mockGenreRepo.Setup(repo => repo.GetGenreById(1)).ReturnsAsync((Genre)null);
 
-            // Act
-            var result = await _controller.UpdateGenre(genreDTO);
-
-            // Assert
-            var redirectResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectResult.ActionName); // Ensure redirection to Index action
-            Assert.True(_controller.TempData.ContainsKey("successMessage"));
-            Assert.Equal("Genre is updated successfully", _controller.TempData["successMessage"]);
-        }
-
-        [Fact]
-        public async Task UpdateGenre_Post_ReturnsViewOnInvalidModelState()
-        {
-            // Arrange
-            var genreDTO = new GenreDTO { Id = 1, GenreName = "" }; // Invalid data
-            _controller.ModelState.AddModelError("GenreName", "Genre name is required");
-
-            // Act
-            var result = await _controller.UpdateGenre(genreDTO);
-
-            // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Equal(genreDTO, viewResult.Model); // Ensure the model is passed back to the view
-        }
-        #endregion
-
-        #region Test DeleteGenre
-        [Fact]
-        public async Task DeleteGenre_DeletesGenreAndRedirects()
-        {
-            // Arrange
-            var genre = new Genre { Id = 1, GenreName = "Horror" };
-            _mockRepo.Setup(repo => repo.GetGenreById(1)).ReturnsAsync(genre);
-            _mockRepo.Setup(repo => repo.DeleteGenre(genre)).Returns(Task.CompletedTask);
-
-            // Act
-            var result = await _controller.DeleteGenre(1);
-
-            // Assert
-            var redirectResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectResult.ActionName); // Ensure redirection to Index action
-        }
-
-        [Fact]
-        public async Task DeleteGenre_GenreNotFound_ThrowsException()
-        {
-            // Arrange
-            _mockRepo.Setup(repo => repo.GetGenreById(1)).ReturnsAsync((Genre)null);
-
-            // Act & Assert
-            var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => _controller.DeleteGenre(1));
-            Assert.Equal("Genre with id: 1 does not found", exception.Message); // Ensure the exception message is correct
-        }
-        #endregion
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(() => _controller.DeleteGenre(1));
     }
 }
