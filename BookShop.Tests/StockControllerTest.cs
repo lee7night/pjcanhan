@@ -1,7 +1,7 @@
 using AutoMapper;
-using BookShoppingCartMvcUI.Controllers;
-using BookShoppingCartMvcUI.Models;
-using BookShoppingCartMvcUI.Repositories;
+using BookShop.Controllers;
+using BookShop.Models;
+using BookShop.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;

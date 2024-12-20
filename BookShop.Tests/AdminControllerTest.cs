@@ -1,6 +1,6 @@
-using BookShoppingCartMvcUI.Controllers;
-using BookShoppingCartMvcUI.Models;
-using BookShoppingCartMvcUI.Repositories;
+using BookShop.Controllers;
+using BookShop.Models;
+using BookShop.Repositories;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Xunit;
 using Microsoft.AspNetCore.Http;
 
-namespace BookShoppingCartMvcUI.Tests
+namespace BookShop.Tests
 {
     public class AdminOperationsControllerTests
     {

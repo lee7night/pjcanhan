@@ -1,6 +1,6 @@
-using BookShoppingCartMvcUI.Controllers;
-using BookShoppingCartMvcUI.Models;
-using BookShoppingCartMvcUI.Models.DTOs;
+using BookShop.Controllers;
+using BookShop.Models;
+using BookShop.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -10,7 +10,7 @@ using Xunit;
 using Microsoft.AspNetCore.Http;
 
 
-namespace BookShoppingCartMvcUI.Tests
+namespace BookShop.Tests
 {
     public class HomeControllerTests
     {

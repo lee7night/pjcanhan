@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Threading.Tasks;
 using Xunit;
-using BookShoppingCartMvcUI.Controllers;
-using BookShoppingCartMvcUI.Repositories; // Assuming IUserOrderRepository is in this namespace
+using BookShop.Controllers;
+using BookShop.Repositories; // Assuming IUserOrderRepository is in this namespace
 
-namespace BookShoppingCartMvcUI.Tests
+namespace BookShop.Tests
 {
     public class UserOrderControllerTests
     {
