@@ -20,4 +20,8 @@ public class CheckoutModel
 
     [Required]
     public string? PaymentMethod { get; set; }
+    [Required]
+    public string? amount { get; set; }
+    public string? Note { get; set; }
+
 }

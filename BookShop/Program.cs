@@ -3,6 +3,8 @@ using BookShop.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models; // Thêm không gian tên này  
+using BookShop.Services;
+using BookShop.Utils.ConfigOptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,9 @@ builder.Services.AddTransient<IGenreRepository, GenreRepository>();
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddTransient<IBookRepository, BookRepository>();
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddSingleton<IVnPayService, VnPayService>();
+builder.Services.Configure<VnPayConfigOptions>(
+builder.Configuration.GetSection("VnPay"));
 
 // Swagger  
 builder.Services.AddSwaggerGen(c =>

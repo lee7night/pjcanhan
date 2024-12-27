@@ -14,7 +14,7 @@
                 <th>Image</th>
                 <th>Genre</th>
                 <th>Unit Price(INR)</th>
-                <th>Total Price</th>
+                <th>Amount</th>
                 <th>Action</th>
             </tr>
             @foreach (var item in Model.CartDetails)
@@ -42,7 +42,8 @@
                         }
                         else
                         {
-                            <span style="border: 1px solid;padding: 8px 8px;color: red;border-radius: 5px;margin-right:4px">Out of stock </span>
+                            <span style="border: 1px solid;padding: 8px 8px;color: red;border-radius: 5px;margin-right:4px">Out of
+                                stock </span>
                         }
                         @* Decrement button *@
                         <a class="btn btn-info" href="/cart/removeitem?bookid=@item.BookId">-</a>
@@ -66,4 +67,3 @@
         <h5>Cart is empty</h5>
     }
 </div>
-

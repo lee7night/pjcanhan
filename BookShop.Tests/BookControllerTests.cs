@@ -58,7 +58,7 @@ namespace BookShop.Tests
             decimal itemPrice = 10.00m;
             int quantity = 3;
 
-            // Calculating total price
+            // Calculating amount
             decimal totalPrice = itemPrice * quantity;
 
             // Explicitly casting the totalPrice to double
