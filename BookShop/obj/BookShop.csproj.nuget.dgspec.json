@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\bookshop\\BookShop.csproj": {}
+    "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\BookShop\\BookShop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\bookshop\\BookShop.csproj": {
+    "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\BookShop\\BookShop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\bookshop\\BookShop.csproj",
+        "projectUniqueName": "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\BookShop\\BookShop.csproj",
         "projectName": "BookShop",
-        "projectPath": "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\bookshop\\BookShop.csproj",
+        "projectPath": "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\BookShop\\BookShop.csproj",
         "packagesPath": "C:\\Users\\TGDD\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\bookshop\\obj\\",
+        "outputPath": "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\BookShop\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\TGDD\\AppData\\Roaming\\NuGet\\NuGet.Config"

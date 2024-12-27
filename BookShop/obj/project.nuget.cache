@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b/5hYF/5PbE=",
+  "dgSpecHash": "79uFsjj1eRI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\bookshop\\BookShop.csproj",
+  "projectFilePath": "C:\\Users\\TGDD\\Downloads\\ehehe\\pjcanhan\\BookShop\\BookShop.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TGDD\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\TGDD\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
