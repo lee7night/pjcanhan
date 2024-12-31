@@ -2,7 +2,7 @@ using BookShop;
 using BookShop.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models; // Thêm không gian tên này  
+using Microsoft.OpenApi.Models;
 using BookShop.Services;
 using BookShop.Utils.ConfigOptions;
 
