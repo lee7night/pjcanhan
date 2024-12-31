@@ -51,7 +51,6 @@ namespace BookShop.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Checkout(CheckoutModel model)
         {
@@ -89,7 +88,6 @@ namespace BookShop.Controllers
         {
             return View();
         }
-
         public IActionResult PaymentCallBack()
         {
             var response = _vnPayService.PaymentExecute(Request.Query);

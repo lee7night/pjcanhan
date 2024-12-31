@@ -1,10 +1,11 @@
 using BookShop;
-using BookShop.Shared;
+using BookShop.Services;
+using BookShop.Utils.ConfigOptions;
+using BookShop.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using BookShop.Services;
-using BookShop.Utils.ConfigOptions;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,12 +27,12 @@ builder.Services.AddTransient<ICartRepository, CartRepository>();
 builder.Services.AddTransient<IUserOrderRepository, UserOrderRepository>();
 builder.Services.AddTransient<IStockRepository, StockRepository>();
 builder.Services.AddTransient<IGenreRepository, GenreRepository>();
-builder.Services.AddTransient<IFileService, FileService>();
+builder.Services.AddSingleton<IVnPayService, VnPayService>();
 builder.Services.AddTransient<IBookRepository, BookRepository>();
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddSingleton<IVnPayService, VnPayService>();
 builder.Services.Configure<VnPayConfigOptions>(
-builder.Configuration.GetSection("VnPay"));
+    builder.Configuration.GetSection("VnPay"));
+
 
 // Swagger  
 builder.Services.AddSwaggerGen(c =>

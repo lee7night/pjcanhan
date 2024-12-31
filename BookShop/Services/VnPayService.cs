@@ -27,7 +27,7 @@ namespace BookShop.Services
             vnPay.AddRequestData("vnp_Version", _options.Version!);
             vnPay.AddRequestData("vnp_Command", _options.Command!);
             vnPay.AddRequestData("vnp_TmnCode", _options.TmnCode!);
-            vnPay.AddRequestData("vnp_amount", (model.amount * 100).ToString());
+            vnPay.AddRequestData("vnp_Amount", (model.amount * 100).ToString());
 
             vnPay.AddRequestData("vnp_CreateDate", model.CreatedDate.ToString("yyyyMMddHHmmss"));
             vnPay.AddRequestData("vnp_CurrCode", _options.CurrCode!);
