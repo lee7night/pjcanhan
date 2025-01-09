@@ -8,12 +8,10 @@ namespace BookShop.Controllers;
 [Authorize(Roles = nameof(Roles.Admin))]
 public class BookController : Controller
 {
-   private readonly IBookRepository _bookRepo;
+    private readonly IBookRepository _bookRepo;
     private readonly IGenreRepository _genreRepo;
     private readonly IFileService _fileService;
     private readonly IMapper _mapper;
-
-
     public BookController(IBookRepository bookRepo, IGenreRepository genreRepo, IFileService fileService, IMapper mapper)
     {
         _bookRepo = bookRepo;
@@ -21,14 +19,11 @@ public class BookController : Controller
         _fileService = fileService;
         _mapper = mapper;
     }
-
-
     public async Task<IActionResult> Index()
     {
         var books = await _bookRepo.GetBooks();
         return View(books);
     }
-
     public async Task<IActionResult> AddBook()
     {
         var genreSelectList = (await _genreRepo.GetGenres()).Select(genre => new SelectListItem
@@ -61,7 +56,7 @@ public class BookController : Controller
                 {
                     throw new InvalidOperationException("Image file can not exceed 1 MB");
                 }
-                string[] allowedExtensions = [".jpeg", ".jpg", ".png"];
+                string[] allowedExtensions = { ".jpeg", ".jpg", ".png" };
                 string imageName = await _fileService.SaveFile(bookToAdd.ImageFile, allowedExtensions);
                 bookToAdd.Image = imageName;
             }
@@ -131,7 +126,7 @@ public class BookController : Controller
                 {
                     throw new InvalidOperationException("Image file can not exceed 1 MB");
                 }
-                string[] allowedExtensions = [".jpeg", ".jpg", ".png"];
+                string[] allowedExtensions = { ".jpeg", ".jpg", ".png" };
                 string imageName = await _fileService.SaveFile(bookToUpdate.ImageFile, allowedExtensions);
                 // hold the old image name. Because we will delete this image after updating the new
                 oldImage = bookToUpdate.Image;
@@ -199,4 +194,3 @@ public class BookController : Controller
     }
 
 }
-

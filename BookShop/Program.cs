@@ -4,6 +4,7 @@ using BookShop.Utils.ConfigOptions;
 using BookShop.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using BookShop.Shared;
 using Microsoft.OpenApi.Models;
 
 
@@ -28,6 +29,7 @@ builder.Services.AddTransient<IUserOrderRepository, UserOrderRepository>();
 builder.Services.AddTransient<IStockRepository, StockRepository>();
 builder.Services.AddTransient<IGenreRepository, GenreRepository>();
 builder.Services.AddSingleton<IVnPayService, VnPayService>();
+builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddTransient<IBookRepository, BookRepository>();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.Configure<VnPayConfigOptions>(

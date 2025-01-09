@@ -213,6 +213,9 @@ namespace BookShop.Repositories
             return userId;
         }
 
-
+        public bool CompleteOrder(string? orderId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

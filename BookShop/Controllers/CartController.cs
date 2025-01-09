@@ -90,21 +90,25 @@ namespace BookShop.Controllers
         }
         public IActionResult PaymentCallBack()
         {
+            // Ghi log yêu cầu vào để gỡ lỗi  
             var response = _vnPayService.PaymentExecute(Request.Query);
+            // Ghi log phản hồi để gỡ lỗi  
+            Console.WriteLine($"Mã phản hồi VNPay: {response.VnPayResponseCode}");
+
             if (response.VnPayResponseCode == "00")
             {
-                // Processed successfully  
+                // Giao dịch thành công  
                 return RedirectToAction(nameof(PaymentSuccess));
             }
 
-            // Get the message corresponding to VnPayResponseCode from the dictionary  
+            // Xử lý các phản hồi lỗi  
             if (vnp_TransactionStatus.TryGetValue(response.VnPayResponseCode!, out var message))
             {
-                TempData["Message"] = $"Payment error: {message}";
+                TempData["Message"] = $"Lỗi thanh toán: {message}";
             }
             else
             {
-                TempData["Message"] = $"Unknown payment error: {response.VnPayResponseCode}";
+                TempData["Message"] = $"Lỗi thanh toán không xác định: {response.VnPayResponseCode}";
             }
 
             return RedirectToAction(nameof(PaymentFail));
